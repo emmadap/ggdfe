@@ -49,7 +49,8 @@ dfe_pal <- function(palette = 'main',
 
   if(reverse) pal <- rev(pal)
 
-  colorRampPalette(pal, ...)
+  grDevices::colorRampPalette(pal, ...)
+
 }
 
 #' Add colour scale to ggplot with DfE theme
@@ -72,14 +73,16 @@ dfe_pal <- function(palette = 'main',
 #'  cold - white to blue (continuous) \cr
 #'  cold2 - white to turqouise (continuous)\cr
 #' @export
-#' @examples iris %>% ggplot(aes(x=Sepal.Width, y=Sepal.Length, colour = species))
-#' + geom_point()+
+#' @examples library(ggplot2)
+#' iris |>
+#' ggplot(aes(x=Sepal.Width, y=Sepal.Length, colour = Species))+
+#' geom_point()+
 #' scale_colour_dfe()
 #'
-#' iris %>%
+#' iris |>
 #'  ggplot(aes(x=Petal.Length,y=Sepal.Length,colour = Sepal.Width))+
 #'  geom_point(size = 3, alpha = 3/4)+
-#'  scale_colour_dfe(palette = 'heat', discrete = F)
+#'  scale_colour_dfe(palette = 'heat', discrete = FALSE)
 #'
 #'
 scale_colour_dfe <- function(palette = "main",
@@ -89,9 +92,9 @@ scale_colour_dfe <- function(palette = "main",
   pal <- dfe_pal(palette = palette, reverse = reverse)
 
     if (discrete){
-      discrete_scale("colour", paste0("dfe_", palette), palette = pal, ...)
+      ggplot2::discrete_scale("colour", paste0("dfe_", palette), palette = pal, ...)
     } else {
-      scale_colour_gradientn(colours = pal(256))
+      ggplot2::scale_colour_gradientn(colours = pal(256))
     }
   }
 
@@ -115,7 +118,8 @@ scale_colour_dfe <- function(palette = "main",
 #'  cold - white to blue (continuous) \cr
 #'  cold2 - white to turqouise (continuous)\cr
 #' @export
-#' @examples iris %>%
+#' @examples library(ggplot2)
+#' iris |>
 #'  ggplot(aes(x=Species,y=Sepal.Length,fill=Species))+
 #'  geom_col()+
 #'  scale_fill_dfe()
@@ -124,10 +128,10 @@ scale_colour_dfe <- function(palette = "main",
 #' data <- data.frame(murder = USArrests$Murder,
 #'  state = tolower(rownames(USArrests)))
 #'  map <- map_data("state")
-#'  ggplot(data, aes(fill=murder))+
+#'  ggplot2::ggplot(data, aes(fill=murder))+
 #'    geom_map(aes(map_id = state), map=map)+
 #'    expand_limits(x = map$long, y=map$lat)+
-#'    scale_fill_dfe(palette = 'heat',discrete = F)
+#'    scale_fill_dfe(palette = 'heat',discrete = FALSE)
 #'
 #'
 #'
@@ -135,8 +139,10 @@ scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, .
   pal <- dfe_pal(palette = palette, reverse = reverse)
 
   if (discrete) {
-    discrete_scale("fill", paste0("dfe_", palette), palette = pal, ...)
+    ggplot2::discrete_scale("fill", paste0("dfe_", palette), palette = pal, ...)
   } else {
-    scale_fill_gradientn(colours = pal(256), ...)
+    ggplot2::scale_fill_gradientn(colours = pal(256), ...)
   }
 }
+
+

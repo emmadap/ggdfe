@@ -33,7 +33,8 @@ cold2 - white to turqouise (continuous)\cr
 Add fill scale to ggplot with DfE theme
 }
 \examples{
-iris \%>\%
+library(ggplot2)
+iris |>
  ggplot(aes(x=Species,y=Sepal.Length,fill=Species))+
  geom_col()+
  scale_fill_dfe()
@@ -42,10 +43,10 @@ iris \%>\%
 data <- data.frame(murder = USArrests$Murder,
  state = tolower(rownames(USArrests)))
  map <- map_data("state")
- ggplot(data, aes(fill=murder))+
+ ggplot2::ggplot(data, aes(fill=murder))+
    geom_map(aes(map_id = state), map=map)+
    expand_limits(x = map$long, y=map$lat)+
-   scale_fill_dfe(palette = 'heat',discrete = F)
+   scale_fill_dfe(palette = 'heat',discrete = FALSE)
 
 
 

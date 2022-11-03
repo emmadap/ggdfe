@@ -33,14 +33,16 @@ cold2 - white to turqouise (continuous)\cr
 Add colour scale to ggplot with DfE theme
 }
 \examples{
-iris \%>\% ggplot(aes(x=Sepal.Width, y=Sepal.Length, colour = species))
-+ geom_point()+
+library(ggplot2)
+iris |>
+ggplot(aes(x=Sepal.Width, y=Sepal.Length, colour = Species))+
+geom_point()+
 scale_colour_dfe()
 
-iris \%>\%
+iris |>
  ggplot(aes(x=Petal.Length,y=Sepal.Length,colour = Sepal.Width))+
  geom_point(size = 3, alpha = 3/4)+
- scale_colour_dfe(palette = 'heat', discrete = F)
+ scale_colour_dfe(palette = 'heat', discrete = FALSE)
 
 
 }
