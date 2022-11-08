@@ -125,15 +125,9 @@ scale_colour_dfe <- function(palette = "main",
 #'  scale_fill_dfe()
 #'
 #'
-#' data <- data.frame(murder = USArrests$Murder,
-#'  state = tolower(rownames(USArrests)))
-#'  map <- map_data("state")
-#'  ggplot2::ggplot(data, aes(fill=murder))+
-#'    geom_map(aes(map_id = state), map=map)+
-#'    expand_limits(x = map$long, y=map$lat)+
-#'    scale_fill_dfe(palette = 'heat',discrete = FALSE)
-#'
-#'
+#'  ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
+#'      geom_tile()+
+#'      scale_fill_dfe(discrete = FALSE, palette = 'heat')
 #'
 scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
   pal <- dfe_pal(palette = palette, reverse = reverse)

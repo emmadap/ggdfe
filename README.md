@@ -8,7 +8,7 @@ There are two functions that work to add in colour scales: `scale_fill_dfe()` an
 
 These are the base colours
 
-<img src="/assets/dfe_colour_pallete.png">
+<img src="/assets/dfe_colour_palette.png">
 
 
 There are also palettes, passed to the 'palettes' argument. These are for selecting a suitable subset of the colours above, depending on if you need a discrete, continuous or diverging palette.
