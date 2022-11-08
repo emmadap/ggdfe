@@ -8,7 +8,7 @@ There are two functions that work to add in colour scales: `scale_fill_dfe()` an
 
 These are the base colours
 
-![](assets/dfe_colour_palette.png)
+<img src="/assets/dfe_colour_pallete.png">
 
 
 There are also palettes, passed to the 'palettes' argument. These are for selecting a suitable subset of the colours above, depending on if you need a discrete, continuous or diverging palette.
@@ -23,7 +23,7 @@ likert3 -  red to blue, white midpoint (diverging)
 heat - white to red (continuous)
 heat2 - white to pink (continuous)
 cold - white to blue (continuous)
-cold2 - white to turqouise (continuous
+cold2 - white to turqouise (continuous)
 
 
 
