@@ -168,7 +168,7 @@ display.dfe.all <- function(name_of_palette = dfe_palettes){
 
 
   ggplot2::ggplot(data = output, ggplot2::aes(x=ord,y=stats::reorder(name,ord, FUN = max),fill = pal_colour))+
-    ggplot2::geom_tile(height = .8, width = .8, colour = 'black')+
+    ggplot2::geom_tile(height = .8, width = .8, colour = '#e5e5e5', linewidth = .5)+
     ggplot2::scale_fill_manual(values = cols)+
     ggplot2::coord_fixed(ratio = 9/16)+
     ggplot2::theme_minimal()+
@@ -180,5 +180,3 @@ display.dfe.all <- function(name_of_palette = dfe_palettes){
   return(plot)
 
 }
-
-
