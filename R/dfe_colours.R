@@ -140,3 +140,45 @@ scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, .
 }
 
 
+
+#this should be an undocumented function at the moment, but it could be developed in the future
+#Plays the same role as Rcolorbrewer::display.brewer.all()
+#but in ggplot
+#You can also pass individual palettes such as dfe_palettes["full"]
+
+display.dfe.all <- function(name_of_palette = dfe_palettes){
+
+
+  purrr::pluck(tibble::tibble(name_of_palette),1) -> pal_data
+
+  output <- tibble::tibble()
+  pal_colour <- ord <- NULL
+
+  for(i in seq_along(pal_data)){
+
+    name <- names(pal_data[i])
+    pal <-  unlist(purrr::pluck(pal_data[i]))
+
+    for(i in seq_along(pal)){
+      output <- dplyr::bind_rows(output, c(name = name, pal_colour = pal[[i]], ord = i))
+    }
+  }
+
+  cols <- levels(factor(output$pal_colour))
+
+
+  ggplot2::ggplot(data = output, ggplot2::aes(x=ord,y=stats::reorder(name,ord, FUN = max),fill = pal_colour))+
+    ggplot2::geom_tile(height = .8, width = .8, colour = 'black')+
+    ggplot2::scale_fill_manual(values = cols)+
+    ggplot2::coord_fixed(ratio = 9/16)+
+    ggplot2::theme_minimal()+
+    ggplot2::theme(panel.grid = ggplot2::element_blank(),
+          axis.text.x = ggplot2::element_blank(),
+          axis.title = ggplot2::element_blank(),
+          legend.position = 'none') -> plot
+
+  return(plot)
+
+}
+
+
