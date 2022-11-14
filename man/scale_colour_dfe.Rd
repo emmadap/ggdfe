@@ -17,17 +17,19 @@ scale_colour_dfe(palette = "main", discrete = TRUE, reverse = FALSE, ...)
 }
 \value{
 These are the palettes in their current form \cr
-main - Blue red turquoise (discrete, 3 colours) \cr
-warm - Red to purple (continuous) \cr
-cool - Blue to lime (continuous) \cr
-full - all colours in the brand (discrete, 7 colours) \cr
-likert - red to blue, grey midpoint (diverging) \cr
-likert2 - green to purple, white midpoint (diverging) \cr
-likert3 -  red to blue, white midpoint (diverging) \cr
-heat - white to red (continuous) \cr
-heat2 - white to pink (continuous) \cr
-cold - white to blue (continuous) \cr
-cold2 - white to turqouise (continuous)\cr
+\itemize{
+\item main - Blue red turquoise (discrete, 3 colours) \cr
+\item warm - Red to purple (continuous) \cr
+\item cool - Blue to lime (continuous) \cr
+\item full - all colours in the brand (discrete, 7 colours) \cr
+\item likert - red to blue, grey midpoint (diverging) \cr
+\item likert2 - green to purple, white midpoint (diverging) \cr
+\item likert3 -  red to blue, white midpoint (diverging) \cr
+\item heat - white to red (continuous) \cr
+\item heat2 - white to pink (continuous) \cr
+\item cold - white to blue (continuous) \cr
+\item cold2 - white to turqouise (continuous)\cr
+}
 }
 \description{
 Add colour scale to ggplot with DfE theme
