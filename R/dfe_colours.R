@@ -1,6 +1,3 @@
-require(tidyverse)
-
-
 #These are the colours used - here's the brand guidelines: https://educationgovuk.sharepoint.com/sites/how-do-i/SitePages/communications-how-to-use-branding-in-the-department-and-its-executive-agencies.aspx#using-the-brand
 
 dfe_colours <- c(
@@ -61,17 +58,17 @@ dfe_pal <- function(palette = 'main',
 #' @param ... arguments passed onto discrete_scale
 #'
 #' @return These are the palettes in their current form \cr
-#'  main - Blue red turquoise (discrete, 3 colours) \cr
-#'  warm - Red to purple (continuous) \cr
-#'  cool - Blue to lime (continuous) \cr
-#'  full - all colours in the brand (discrete, 7 colours) \cr
-#'  likert - red to blue, grey midpoint (diverging) \cr
-#'  likert2 - green to purple, white midpoint (diverging) \cr
-#'  likert3 -  red to blue, white midpoint (diverging) \cr
-#'  heat - white to red (continuous) \cr
-#'  heat2 - white to pink (continuous) \cr
-#'  cold - white to blue (continuous) \cr
-#'  cold2 - white to turqouise (continuous)\cr
+#'  - main - Blue red turquoise (discrete, 3 colours) \cr
+#'  - warm - Red to purple (continuous) \cr
+#'  - cool - Blue to lime (continuous) \cr
+#'  - full - all colours in the brand (discrete, 7 colours) \cr
+#'  - likert - red to blue, grey midpoint (diverging) \cr
+#'  - likert2 - green to purple, white midpoint (diverging) \cr
+#'  - likert3 -  red to blue, white midpoint (diverging) \cr
+#'  - heat - white to red (continuous) \cr
+#'  - heat2 - white to pink (continuous) \cr
+#'  - cold - white to blue (continuous) \cr
+#'  - cold2 - white to turqouise (continuous)\cr
 #' @export
 #' @examples library(ggplot2)
 #' iris |>
@@ -89,14 +86,21 @@ scale_colour_dfe <- function(palette = "main",
                              discrete = TRUE,
                              reverse = FALSE,
                              ...){
-  pal <- dfe_pal(palette = palette, reverse = reverse)
 
-    if (discrete){
-      ggplot2::discrete_scale("colour", paste0("dfe_", palette), palette = pal, ...)
-    } else {
-      ggplot2::scale_colour_gradientn(colours = pal(256))
+  if(palette %in% names(dfe_palettes)){
+    {
+    pal <- dfe_pal(palette = palette, reverse = reverse)
+
+      if (discrete){
+        ggplot2::discrete_scale("colour", paste0("dfe_", palette), palette = pal, ...)
+      } else {
+        ggplot2::scale_colour_gradientn(colours = pal(256))
+      }
     }
+  } else{cat("Unrecognised palette. Palettes available:",names(dfe_palettes))
   }
+}
+
 
 #' Add fill scale to ggplot with DfE theme
 #'
@@ -106,17 +110,17 @@ scale_colour_dfe <- function(palette = "main",
 #' @param ... arguments passed onto discrete_scale or scale_fill_gradientn
 #'
 #' @return These are the palettes in their current form \cr
-#'  main - Blue red turquoise (discrete, 3 colours) \cr
-#'  warm - Red to purple (continuous) \cr
-#'  cool - Blue to lime (continuous) \cr
-#'  full - all colours in the brand (discrete, 7 colours) \cr
-#'  likert - red to blue, grey midpoint (diverging) \cr
-#'  likert2 - green to purple, white midpoint (diverging) \cr
-#'  likert3 -  red to blue, white midpoint (diverging) \cr
-#'  heat - white to red (continuous) \cr
-#'  heat2 - white to pink (continuous) \cr
-#'  cold - white to blue (continuous) \cr
-#'  cold2 - white to turqouise (continuous)\cr
+#'  - main - Blue red turquoise (discrete, 3 colours) \cr
+#'  - warm - Red to purple (continuous) \cr
+#'  - cool - Blue to lime (continuous) \cr
+#'  - full - all colours in the brand (discrete, 7 colours) \cr
+#'  - likert - red to blue, grey midpoint (diverging) \cr
+#'  - likert2 - green to purple, white midpoint (diverging) \cr
+#'  - likert3 -  red to blue, white midpoint (diverging) \cr
+#'  - heat - white to red (continuous) \cr
+#'  - heat2 - white to pink (continuous) \cr
+#'  - cold - white to blue (continuous) \cr
+#'  - cold2 - white to turqouise (continuous)\cr
 #' @export
 #' @examples library(ggplot2)
 #' iris |>
@@ -130,12 +134,17 @@ scale_colour_dfe <- function(palette = "main",
 #'      scale_fill_dfe(discrete = FALSE, palette = 'heat')
 #'
 scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
-  pal <- dfe_pal(palette = palette, reverse = reverse)
 
-  if (discrete) {
-    ggplot2::discrete_scale("fill", paste0("dfe_", palette), palette = pal, ...)
-  } else {
-    ggplot2::scale_fill_gradientn(colours = pal(256), ...)
+  if(palette %in% names(dfe_palettes)){
+
+    pal <- dfe_pal(palette = palette, reverse = reverse)
+
+    if (discrete) {
+      ggplot2::discrete_scale("fill", paste0("dfe_", palette), palette = pal, ...)
+    } else {
+      ggplot2::scale_fill_gradientn(colours = pal(256), ...)
+    }
+  } else {cat("Unrecognised palette. Palettes available:",names(dfe_palettes))
   }
 }
 

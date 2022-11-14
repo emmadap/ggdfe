@@ -1,12 +1,20 @@
-```{r, echo=FALSE}
+---
+title: "ggdfe package"
+output:
+  html_document
+---
+
+
+```{r, echo=FALSE, message=FALSE}
 
 devtools::load_all(".")
+knitr::opts_chunk$set(echo = FALSE) # if you want code chunks to be displayed, best to do it in the chunk headers
 
 ```
 
-# dfethemes
 
-This package seeks to create an easy theme to add to any ggplot to keep it in line with ['DfE brand guidelines'](https://educationgovuk.sharepoint.com/sites/how-do-i/SitePages/communications-how-to-use-branding-in-the-department-and-its-executive-agencies.aspx?xsdata=MDV8MDF8fGFkNzQzOGRkZWUwNjQ5NWRlOTIwMDhkYWJjMmE0ZTQ1fGZhZDI3N2M5YzYwYTRkYTFiNWYzYjNiOGIzNGE4MmY5fDF8MHw2MzgwMjkxODcxMTQxOTkzMjh8R29vZHxWR1ZoYlhOVFpXTjFjbWwwZVZObGNuWnBZMlY4ZXlKV0lqb2lNQzR3TGpBd01EQWlMQ0pRSWpvaVYybHVNeklpTENKQlRpSTZJazkwYUdWeUlpd2lWMVFpT2pFeGZRPT18MXxNVGs2TXpFeFpXTXlaVFJrTkRaaU5HUmtNemhtTUdRMk1XWXdOV1ppT1RNek9ETkFkR2h5WldGa0xuTnJlWEJsfHw%3D&sdata=YzJ6TWJBT0Z1cXduTUhsenZIQ1E5VzUrSjM2Q3lDZlN1TWRvZlNvdWhYMD0%3D#using-the-brand).
+
+This package seeks to create an easy theme to add to any ggplot to keep it in line with DfE brand guidelines.
 
 ## Colours
 
@@ -18,13 +26,13 @@ These are the base colours
 
 tibble::tibble(y=max(length(dfe_colours)),x=dfe_colours) -> data
 
-ggplot(data=data, aes(x=names(x),y=y, fill = x))+
-  geom_tile(width=.9,height=.9, colour = '#e5e5e5', linewidth = .5)+
-  scale_fill_manual(values = levels(factor(data$x)))+
-  coord_fixed(ratio=9/16)+
-  theme_void()+
-  theme(legend.position = 'none',
-        axis.text.x = element_text())
+ggplot2::ggplot(data=data, ggplot2::aes(x=names(x),y=y, fill = x))+
+  ggplot2::geom_tile(width=.9,height=.9, colour = '#e5e5e5', linewidth = .5)+
+  ggplot2::scale_fill_manual(values = levels(factor(data$x)))+
+  ggplot2::coord_fixed(ratio=9/16)+
+  ggplot2::theme_void()+
+  ggplot2::theme(legend.position = 'none',
+        axis.text.x = ggplot2::element_text())
   
 
 ```
@@ -48,6 +56,19 @@ There are also palettes, passed to the 'palettes' argument. These are for select
 display.dfe.all()
 
 ```
+
+Exaples of usage would be:
+
+```{r, echo = TRUE}
+ggplot2::ggplot(data = iris)+
+  ggplot2::aes(x=Sepal.Length, colour = Species)+
+  ggplot2::geom_density(linewidth = 1.5)+
+  scale_colour_dfe(palette = "main")+
+  ggplot2::theme_minimal()
+
+
+```
+
 
 
 
