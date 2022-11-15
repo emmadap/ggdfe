@@ -1,4 +1,3 @@
-#These are the colours used - here's the brand guidelines: https://educationgovuk.sharepoint.com/sites/how-do-i/SitePages/communications-how-to-use-branding-in-the-department-and-its-executive-agencies.aspx#using-the-brand
 
 dfe_colours <- c(
   "Blue" = "#183860",
@@ -13,12 +12,14 @@ dfe_colours <- c(
   )
 
 
-#this just selects colours based on the names - used to create palettes below
+# This just selects colours based on the names - used to create palettes below
 dfe_cols <- function(...){
+
   cols <- c(...)
 
-  if (is.null(cols))
+  if (is.null(cols)) {
     return(dfe_colours[])
+  }
 
   dfe_colours[cols]
 }
