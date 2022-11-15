@@ -29,9 +29,7 @@ dfe_palettes <- list(
   "main" = dfe_cols("Blue", "Red", "Turquoise"),
   "warm" = dfe_cols("Red", "Pink", "Purple"),
   "cool" = dfe_cols("Blue", "Turquoise", "Lime"),
-  "full" = dfe_cols(
-    "Red", "Pink", "Yellow", "Lime", "Turquoise", "Blue", "Purple"
-  ),
+  "full" = dfe_cols("Red", "Pink", "Yellow", "Lime", "Turquoise", "Blue", "Purple"),
   "likert" = dfe_cols("Red", "Grey", "Turquoise"),
   "likert2" = dfe_cols("Lime", "White", "Purple"),
   "likert3" = dfe_cols("Red", "White", "Blue"),
@@ -88,10 +86,7 @@ dfe_pal <- function(palette = "main", reverse = FALSE, ...) {
 #'   scale_colour_dfe(palette = "heat", discrete = FALSE)
 #'
 #'
-scale_colour_dfe <- function(palette = "main",
-                             discrete = TRUE,
-                             reverse = FALSE,
-                             ...) {
+scale_colour_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
 
   if (palette %in% names(dfe_palettes)) {
 
@@ -142,10 +137,7 @@ scale_colour_dfe <- function(palette = "main",
 #'   geom_tile() +
 #'   scale_fill_dfe(discrete = FALSE, palette = "heat")
 #'
-scale_fill_dfe <- function(palette = "main",
-                           discrete = TRUE,
-                           reverse = FALSE,
-                           ...) {
+scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
 
   if (palette %in% names(dfe_palettes)) {
 
