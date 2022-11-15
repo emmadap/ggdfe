@@ -97,9 +97,9 @@ scale_colour_dfe <- function(palette = "main",
     pal <- dfe_pal(palette = palette, reverse = reverse)
 
     if (discrete){
-      ggplot2::discrete_scale("colour", paste0("dfe_", palette), palette = pal, ...)
+      discrete_scale("colour", paste0("dfe_", palette), palette = pal, ...)
     } else {
-      ggplot2::scale_colour_gradientn(colours = pal(256))
+      scale_colour_gradientn(colours = pal(256))
     }
 
   } else {
@@ -148,9 +148,9 @@ scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, .
     pal <- dfe_pal(palette = palette, reverse = reverse)
 
     if (discrete) {
-      ggplot2::discrete_scale("fill", paste0("dfe_", palette), palette = pal, ...)
+      discrete_scale("fill", paste0("dfe_", palette), palette = pal, ...)
     } else {
-      ggplot2::scale_fill_gradientn(colours = pal(256), ...)
+      scale_fill_gradientn(colours = pal(256), ...)
     }
   } else {cat("Unrecognised palette. Palettes available:",names(dfe_palettes))
   }
@@ -182,15 +182,15 @@ display.dfe.all <- function(name_of_palette = dfe_palettes){
   cols <- levels(factor(output$pal_colour))
 
 
-  ggplot2::ggplot(data = output, ggplot2::aes(x=ord,y=stats::reorder(name,ord, FUN = max),fill = pal_colour))+
-    ggplot2::geom_tile(height = .8, width = .8, colour = '#e5e5e5', linewidth = .5)+
-    ggplot2::scale_fill_manual(values = cols)+
-    ggplot2::coord_fixed(ratio = 9/16)+
-    ggplot2::theme_minimal()+
-    ggplot2::theme(
-      panel.grid = ggplot2::element_blank(),
-      axis.text.x = ggplot2::element_blank(),
-      axis.title = ggplot2::element_blank(),
+  ggplot(data = output, aes(x=ord,y=stats::reorder(name,ord, FUN = max),fill = pal_colour))+
+    geom_tile(height = .8, width = .8, colour = '#e5e5e5', linewidth = .5)+
+    scale_fill_manual(values = cols)+
+    coord_fixed(ratio = 9/16)+
+    theme_minimal()+
+    theme(
+      panel.grid = element_blank(),
+      axis.text.x = element_blank(),
+      axis.title = element_blank(),
       legend.position = 'none'
     )
 
