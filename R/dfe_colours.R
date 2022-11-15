@@ -43,9 +43,12 @@ dfe_palettes <- list(
 dfe_pal <- function(palette = 'main',
                     reverse = FALSE,
                     ...){
+
   pal <- dfe_palettes[[palette]]
 
-  if(reverse) pal <- rev(pal)
+  if (reverse) {
+    pal <- rev(pal)
+  }
 
   grDevices::colorRampPalette(pal, ...)
 
@@ -54,33 +57,34 @@ dfe_pal <- function(palette = 'main',
 #' Add colour scale to ggplot with DfE theme
 #'
 #' @param palette The colour palette to use
-#' @param discrete Is the scale discrete (defaults TRUE)
-#' @param reverse Reverse the order of the scale (defaults FALSE)
-#' @param ... arguments passed onto discrete_scale
+#' @param discrete Is the scale discrete (defaults `TRUE`)
+#' @param reverse Reverse the order of the scale (defaults `FALSE`)
+#' @param ... arguments passed on to `discrete_scale()`
 #'
-#' @return These are the palettes in their current form \cr
-#'  - main - Blue red turquoise (discrete, 3 colours) \cr
-#'  - warm - Red to purple (continuous) \cr
-#'  - cool - Blue to lime (continuous) \cr
-#'  - full - all colours in the brand (discrete, 7 colours) \cr
-#'  - likert - red to blue, grey midpoint (diverging) \cr
-#'  - likert2 - green to purple, white midpoint (diverging) \cr
-#'  - likert3 -  red to blue, white midpoint (diverging) \cr
-#'  - heat - white to red (continuous) \cr
-#'  - heat2 - white to pink (continuous) \cr
-#'  - cold - white to blue (continuous) \cr
-#'  - cold2 - white to turqouise (continuous)\cr
+#' @return These are the palettes in their current form
+#'  - `main` - Blue red turquoise (discrete, 3 colours)
+#'  - `warm` - Red to purple (continuous)
+#'  - `cool` - Blue to lime (continuous)
+#'  - `full` - all colours in the brand (discrete, 7 colours)
+#'  - `likert` - red to blue, grey midpoint (diverging)
+#'  - `likert2` - green to purple, white midpoint (diverging)
+#'  - `likert3` -  red to blue, white midpoint (diverging)
+#'  - `heat` - white to red (continuous)
+#'  - `heat2` - white to pink (continuous)
+#'  - `cold` - white to blue (continuous)
+#'  - `cold2` - white to turqouise (continuous)
+#'
 #' @export
-#' @examples library(ggplot2)
-#' iris |>
-#' ggplot(aes(x=Sepal.Width, y=Sepal.Length, colour = Species))+
-#' geom_point()+
-#' scale_colour_dfe()
 #'
-#' iris |>
-#'  ggplot(aes(x=Petal.Length,y=Sepal.Length,colour = Sepal.Width))+
-#'  geom_point(size = 3, alpha = 3/4)+
-#'  scale_colour_dfe(palette = 'heat', discrete = FALSE)
+#' @examples
+#' library(ggplot2)
+#' ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, colour = Species)) +
+#'   geom_point() +
+#'   scale_colour_dfe()
+#'
+#' ggplot(iris, aes(x = Petal.Length, y = Sepal.Length,colour = Sepal.Width)) +
+#'   geom_point(size = 3, alpha = 3/4) +
+#'   scale_colour_dfe(palette = "heat", discrete = FALSE)
 #'
 #'
 scale_colour_dfe <- function(palette = "main",
@@ -88,17 +92,18 @@ scale_colour_dfe <- function(palette = "main",
                              reverse = FALSE,
                              ...){
 
-  if(palette %in% names(dfe_palettes)){
-    {
+  if (palette %in% names(dfe_palettes)) {
+
     pal <- dfe_pal(palette = palette, reverse = reverse)
 
-      if (discrete){
-        ggplot2::discrete_scale("colour", paste0("dfe_", palette), palette = pal, ...)
-      } else {
-        ggplot2::scale_colour_gradientn(colours = pal(256))
-      }
+    if (discrete){
+      ggplot2::discrete_scale("colour", paste0("dfe_", palette), palette = pal, ...)
+    } else {
+      ggplot2::scale_colour_gradientn(colours = pal(256))
     }
-  } else{cat("Unrecognised palette. Palettes available:",names(dfe_palettes))
+
+  } else {
+    cat("Unrecognised palette. Palettes available:", names(dfe_palettes))
   }
 }
 
@@ -106,33 +111,35 @@ scale_colour_dfe <- function(palette = "main",
 #' Add fill scale to ggplot with DfE theme
 #'
 #' @param palette The colour palette to use
-#' @param discrete Is the scale discrete (defaults TRUE)
-#' @param reverse Reverse the order of the scale (defaults FALSE)
-#' @param ... arguments passed onto discrete_scale or scale_fill_gradientn
+#' @param discrete Is the scale discrete (defaults `TRUE`)
+#' @param reverse Reverse the order of the scale (defaults `FALSE`)
+#' @param ... arguments passed onto discrete_scale or `scale_fill_gradientn()`
 #'
-#' @return These are the palettes in their current form \cr
-#'  - main - Blue red turquoise (discrete, 3 colours) \cr
-#'  - warm - Red to purple (continuous) \cr
-#'  - cool - Blue to lime (continuous) \cr
-#'  - full - all colours in the brand (discrete, 7 colours) \cr
-#'  - likert - red to blue, grey midpoint (diverging) \cr
-#'  - likert2 - green to purple, white midpoint (diverging) \cr
-#'  - likert3 -  red to blue, white midpoint (diverging) \cr
-#'  - heat - white to red (continuous) \cr
-#'  - heat2 - white to pink (continuous) \cr
-#'  - cold - white to blue (continuous) \cr
-#'  - cold2 - white to turqouise (continuous)\cr
+#' @return These are the palettes in their current form
+#'  - `main` - Blue red turquoise (discrete, 3 colours)
+#'  - `warm` - Red to purple (continuous)
+#'  - `cool` - Blue to lime (continuous)
+#'  - `full` - all colours in the brand (discrete, 7 colours)
+#'  - `likert` - red to blue, grey midpoint (diverging)
+#'  - `likert2` - green to purple, white midpoint (diverging)
+#'  - `likert3` -  red to blue, white midpoint (diverging)
+#'  - `heat` - white to red (continuous)
+#'  - `heat2` - white to pink (continuous)
+#'  - `cold` - white to blue (continuous)
+#'  - `cold2` - white to turqouise (continuous)
+#'
 #' @export
-#' @examples library(ggplot2)
-#' iris |>
-#'  ggplot(aes(x=Species,y=Sepal.Length,fill=Species))+
-#'  geom_col()+
-#'  scale_fill_dfe()
 #'
+#' @examples
+#' library(ggplot2)
 #'
-#'  ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
-#'      geom_tile()+
-#'      scale_fill_dfe(discrete = FALSE, palette = 'heat')
+#' ggplot(iris, aes(Species, Sepal.Length, fill = Species)) +
+#'   geom_col() +
+#'   scale_fill_dfe()
+#'
+#' ggplot(faithful, aes(waiting, eruptions, fill = density)) +
+#'   geom_tile() +
+#'   scale_fill_dfe(discrete = FALSE, palette = 'heat')
 #'
 scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
 
@@ -151,11 +158,9 @@ scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, .
 
 
 
-#this should be an undocumented function at the moment, but it could be developed in the future
-#Plays the same role as Rcolorbrewer::display.brewer.all()
-#but in ggplot
-#You can also pass individual palettes such as dfe_palettes["full"]
-
+# this should be an enxported function at the moment, but it could be developed
+# in the future Plays the same role as `Rcolorbrewer::display.brewer.all()` but
+# in ggplot You can also pass individual palettes such as `dfe_palettes["full"]`
 display.dfe.all <- function(name_of_palette = dfe_palettes){
 
 
@@ -182,11 +187,11 @@ display.dfe.all <- function(name_of_palette = dfe_palettes){
     ggplot2::scale_fill_manual(values = cols)+
     ggplot2::coord_fixed(ratio = 9/16)+
     ggplot2::theme_minimal()+
-    ggplot2::theme(panel.grid = ggplot2::element_blank(),
-          axis.text.x = ggplot2::element_blank(),
-          axis.title = ggplot2::element_blank(),
-          legend.position = 'none') -> plot
-
-  return(plot)
+    ggplot2::theme(
+      panel.grid = ggplot2::element_blank(),
+      axis.text.x = ggplot2::element_blank(),
+      axis.title = ggplot2::element_blank(),
+      legend.position = 'none'
+    )
 
 }
