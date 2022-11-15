@@ -2,3 +2,4 @@
 
 export(scale_colour_dfe)
 export(scale_fill_dfe)
+import(ggplot2)

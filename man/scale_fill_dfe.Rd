@@ -9,26 +9,26 @@ scale_fill_dfe(palette = "main", discrete = TRUE, reverse = FALSE, ...)
 \arguments{
 \item{palette}{The colour palette to use}
 
-\item{discrete}{Is the scale discrete (defaults TRUE)}
+\item{discrete}{Is the scale discrete (defaults \code{TRUE})}
 
-\item{reverse}{Reverse the order of the scale (defaults FALSE)}
+\item{reverse}{Reverse the order of the scale (defaults \code{FALSE})}
 
-\item{...}{arguments passed onto discrete_scale or scale_fill_gradientn}
+\item{...}{arguments passed onto discrete_scale or \code{scale_fill_gradientn()}}
 }
 \value{
-These are the palettes in their current form \cr
+These are the palettes in their current form
 \itemize{
-\item main - Blue red turquoise (discrete, 3 colours) \cr
-\item warm - Red to purple (continuous) \cr
-\item cool - Blue to lime (continuous) \cr
-\item full - all colours in the brand (discrete, 7 colours) \cr
-\item likert - red to blue, grey midpoint (diverging) \cr
-\item likert2 - green to purple, white midpoint (diverging) \cr
-\item likert3 -  red to blue, white midpoint (diverging) \cr
-\item heat - white to red (continuous) \cr
-\item heat2 - white to pink (continuous) \cr
-\item cold - white to blue (continuous) \cr
-\item cold2 - white to turqouise (continuous)\cr
+\item \code{main} - Blue red turquoise (discrete, 3 colours)
+\item \code{warm} - Red to purple (continuous)
+\item \code{cool} - Blue to lime (continuous)
+\item \code{full} - all colours in the brand (discrete, 7 colours)
+\item \code{likert} - red to blue, grey midpoint (diverging)
+\item \code{likert2} - green to purple, white midpoint (diverging)
+\item \code{likert3} -  red to blue, white midpoint (diverging)
+\item \code{heat} - white to red (continuous)
+\item \code{heat2} - white to pink (continuous)
+\item \code{cold} - white to blue (continuous)
+\item \code{cold2} - white to turqouise (continuous)
 }
 }
 \description{
@@ -36,14 +36,13 @@ Add fill scale to ggplot with DfE theme
 }
 \examples{
 library(ggplot2)
-iris |>
- ggplot(aes(x=Species,y=Sepal.Length,fill=Species))+
- geom_col()+
- scale_fill_dfe()
 
+ggplot(iris, aes(Species, Sepal.Length, fill = Species)) +
+  geom_col() +
+  scale_fill_dfe()
 
- ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
-     geom_tile()+
-     scale_fill_dfe(discrete = FALSE, palette = 'heat')
+ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
+  geom_tile() +
+  scale_fill_dfe(discrete = FALSE, palette = "heat")
 
 }
