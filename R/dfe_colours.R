@@ -161,25 +161,24 @@ scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, .
 # in ggplot You can also pass individual palettes such as `dfe_palettes["full"]`
 show_dfe_palettes <- function(palette = dfe_palettes) {
 
+  output <- data.frame()
+  pal_colour = NULL
+  ord = NULL
 
-  pal_data <- purrr::pluck(tibble::tibble(palette), 1)
+  for (i in seq_along(palette)) {
 
-  output <- tibble::tibble()
-  ord <- NULL
-  pal_colour <- NULL
-
-  for (i in seq_along(pal_data)) {
-
-    name <- names(pal_data[i])
-    pal <-  unlist(purrr::pluck(pal_data[i]))
+    name <- names(palette[i])
+    pal <-  palette[[i]]
 
     for (i in seq_along(pal)) {
-      output <- dplyr::bind_rows(
+      output <- rbind(
         output,
-        c(name = name, pal_colour = pal[[i]], ord = i)
+        c(name = name, pal_colour = pal[i], ord = i)
       )
     }
   }
+
+  colnames(output)[1:3] <- c("name", "pal_colour", "ord")
 
   cols <- levels(factor(output$pal_colour))
 
@@ -200,5 +199,4 @@ show_dfe_palettes <- function(palette = dfe_palettes) {
       axis.title = element_blank(),
       legend.position = "none"
     )
-
 }
