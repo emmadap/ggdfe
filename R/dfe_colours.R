@@ -13,18 +13,18 @@ dfe_colours <- c(
 
 
 # This just selects colours based on the names - used to create palettes below
-dfe_cols <- function(...){
+dfe_cols <- function(...) {
 
   cols <- c(...)
 
   if (is.null(cols)) {
-    return(dfe_colours[])
+    return(dfe_colours)
   }
 
   dfe_colours[cols]
 }
 
-#list of palettes for various types
+# List of palettes for various types
 dfe_palettes <- list(
   "main" = dfe_cols("Blue","Red","Turquoise"),
   "warm" = dfe_cols("Red","Pink","Purple"),
@@ -39,10 +39,8 @@ dfe_palettes <- list(
   "cold2"= dfe_cols("White", "Turquoise")
 )
 
-#function to create the palette
-dfe_pal <- function(palette = 'main',
-                    reverse = FALSE,
-                    ...){
+# Function to create the palette
+dfe_pal <- function(palette = 'main', reverse = FALSE, ...) {
 
   pal <- dfe_palettes[[palette]]
 
@@ -90,13 +88,13 @@ dfe_pal <- function(palette = 'main',
 scale_colour_dfe <- function(palette = "main",
                              discrete = TRUE,
                              reverse = FALSE,
-                             ...){
+                             ...) {
 
   if (palette %in% names(dfe_palettes)) {
 
     pal <- dfe_pal(palette = palette, reverse = reverse)
 
-    if (discrete){
+    if (discrete) {
       discrete_scale("colour", paste0("dfe_", palette), palette = pal, ...)
     } else {
       scale_colour_gradientn(colours = pal(256))
@@ -143,7 +141,7 @@ scale_colour_dfe <- function(palette = "main",
 #'
 scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
 
-  if (palette %in% names(dfe_palettes)){
+  if (palette %in% names(dfe_palettes)) {
 
     pal <- dfe_pal(palette = palette, reverse = reverse)
 
@@ -160,23 +158,24 @@ scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, .
 
 
 
-# this should be an enxported function at the moment, but it could be developed
+# This should be an enxported function at the moment, but it could be developed
 # in the future Plays the same role as `Rcolorbrewer::display.brewer.all()` but
 # in ggplot You can also pass individual palettes such as `dfe_palettes["full"]`
-display.dfe.all <- function(name_of_palette = dfe_palettes){
+dfe_palettes <- function(pal = dfe_palettes) {
 
 
-  purrr::pluck(tibble::tibble(name_of_palette),1) -> pal_data
+  pal_data <- purrr::pluck(tibble::tibble(pal), 1)
 
   output <- tibble::tibble()
-  pal_colour <- ord <- NULL
+  ord <- NULL
+  pal_colour <- NULL
 
-  for(i in seq_along(pal_data)){
+  for (i in seq_along(pal_data)) {
 
     name <- names(pal_data[i])
     pal <-  unlist(purrr::pluck(pal_data[i]))
 
-    for(i in seq_along(pal)){
+    for (i in seq_along(pal)) {
       output <- dplyr::bind_rows(output, c(name = name, pal_colour = pal[[i]], ord = i))
     }
   }
@@ -184,7 +183,7 @@ display.dfe.all <- function(name_of_palette = dfe_palettes){
   cols <- levels(factor(output$pal_colour))
 
 
-  ggplot(data = output, aes(ord, stats::reorder(name, ord, FUN = max), fill = pal_colour))+
+  ggplot(output, aes(ord, stats::reorder(name, ord, FUN = max), fill = pal_colour)) +
     geom_tile(height = .8, width = .8, colour = '#e5e5e5', linewidth = .5) +
     scale_fill_manual(values = cols) +
     coord_fixed(ratio = 9/16) +
