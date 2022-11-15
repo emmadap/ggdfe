@@ -26,21 +26,23 @@ dfe_cols <- function(...) {
 
 # List of palettes for various types
 dfe_palettes <- list(
-  "main" = dfe_cols("Blue","Red","Turquoise"),
-  "warm" = dfe_cols("Red","Pink","Purple"),
+  "main" = dfe_cols("Blue", "Red", "Turquoise"),
+  "warm" = dfe_cols("Red", "Pink", "Purple"),
   "cool" = dfe_cols("Blue", "Turquoise", "Lime"),
-  "full" = dfe_cols("Red","Pink","Yellow","Lime","Turquoise", "Blue", "Purple"),
-  "likert" = dfe_cols("Red","Grey","Turquoise"),
-  "likert2" = dfe_cols("Lime","White","Purple"),
-  "likert3" = dfe_cols("Red","White","Blue"),
-  "heat" = dfe_cols("White","Red"),
-  "heat2"= dfe_cols("White","Pink"),
-  "cold" = dfe_cols("White","Blue"),
-  "cold2"= dfe_cols("White", "Turquoise")
+  "full" = dfe_cols(
+    "Red", "Pink", "Yellow", "Lime", "Turquoise", "Blue", "Purple"
+  ),
+  "likert" = dfe_cols("Red", "Grey", "Turquoise"),
+  "likert2" = dfe_cols("Lime", "White", "Purple"),
+  "likert3" = dfe_cols("Red", "White", "Blue"),
+  "heat" = dfe_cols("White", "Red"),
+  "heat2" = dfe_cols("White", "Pink"),
+  "cold" = dfe_cols("White", "Blue"),
+  "cold2" = dfe_cols("White", "Turquoise")
 )
 
 # Function to create the palette
-dfe_pal <- function(palette = 'main', reverse = FALSE, ...) {
+dfe_pal <- function(palette = "main", reverse = FALSE, ...) {
 
   pal <- dfe_palettes[[palette]]
 
@@ -139,7 +141,10 @@ scale_colour_dfe <- function(palette = "main",
 #'   geom_tile() +
 #'   scale_fill_dfe(discrete = FALSE, palette = 'heat')
 #'
-scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
+scale_fill_dfe <- function(palette = "main",
+                           discrete = TRUE,
+                           reverse = FALSE,
+                           ...) {
 
   if (palette %in% names(dfe_palettes)) {
 
@@ -176,23 +181,31 @@ dfe_palettes <- function(pal = dfe_palettes) {
     pal <-  unlist(purrr::pluck(pal_data[i]))
 
     for (i in seq_along(pal)) {
-      output <- dplyr::bind_rows(output, c(name = name, pal_colour = pal[[i]], ord = i))
+      output <- dplyr::bind_rows(
+        output,
+        c(name = name, pal_colour = pal[[i]], ord = i)
+      )
     }
   }
 
   cols <- levels(factor(output$pal_colour))
 
 
-  ggplot(output, aes(ord, stats::reorder(name, ord, FUN = max), fill = pal_colour)) +
-    geom_tile(height = .8, width = .8, colour = '#e5e5e5', linewidth = .5) +
+  ggplot(
+    output,
+    aes(
+      ord, stats::reorder(name, ord, FUN = max), fill = pal_colour
+    )
+  ) +
+    geom_tile(height = .8, width = .8, colour = "#e5e5e5", linewidth = .5) +
     scale_fill_manual(values = cols) +
-    coord_fixed(ratio = 9/16) +
+    coord_fixed(ratio = 9 / 16) +
     theme_minimal() +
     theme(
       panel.grid = element_blank(),
       axis.text.x = element_blank(),
       axis.title = element_blank(),
-      legend.position = 'none'
+      legend.position = "none"
     )
 
 }
