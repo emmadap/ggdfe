@@ -143,7 +143,7 @@ scale_colour_dfe <- function(palette = "main",
 #'
 scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
 
-  if(palette %in% names(dfe_palettes)){
+  if (palette %in% names(dfe_palettes)){
 
     pal <- dfe_pal(palette = palette, reverse = reverse)
 
@@ -152,8 +152,10 @@ scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, .
     } else {
       scale_fill_gradientn(colours = pal(256), ...)
     }
-  } else {cat("Unrecognised palette. Palettes available:",names(dfe_palettes))
+  } else {
+    cat("Unrecognised palette. Palettes available:", names(dfe_palettes))
   }
+
 }
 
 
@@ -182,11 +184,11 @@ display.dfe.all <- function(name_of_palette = dfe_palettes){
   cols <- levels(factor(output$pal_colour))
 
 
-  ggplot(data = output, aes(x=ord,y=stats::reorder(name,ord, FUN = max),fill = pal_colour))+
-    geom_tile(height = .8, width = .8, colour = '#e5e5e5', linewidth = .5)+
-    scale_fill_manual(values = cols)+
-    coord_fixed(ratio = 9/16)+
-    theme_minimal()+
+  ggplot(data = output, aes(ord, stats::reorder(name, ord, FUN = max), fill = pal_colour))+
+    geom_tile(height = .8, width = .8, colour = '#e5e5e5', linewidth = .5) +
+    scale_fill_manual(values = cols) +
+    coord_fixed(ratio = 9/16) +
+    theme_minimal() +
     theme(
       panel.grid = element_blank(),
       axis.text.x = element_blank(),
