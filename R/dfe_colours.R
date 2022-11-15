@@ -162,8 +162,8 @@ scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, .
 show_dfe_palettes <- function(palette = dfe_palettes) {
 
   output <- data.frame()
-  pal_colour = NULL
-  ord = NULL
+  pal_colour <-  NULL
+  ord <-  NULL
 
   for (i in seq_along(palette)) {
 
