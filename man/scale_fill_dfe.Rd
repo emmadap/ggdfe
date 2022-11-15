@@ -41,8 +41,8 @@ ggplot(iris, aes(Species, Sepal.Length, fill = Species)) +
   geom_col() +
   scale_fill_dfe()
 
-ggplot(faithful, aes(waiting, eruptions, fill = density)) +
+ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
   geom_tile() +
-  scale_fill_dfe(discrete = FALSE, palette = 'heat')
+  scale_fill_dfe(discrete = FALSE, palette = "heat")
 
 }

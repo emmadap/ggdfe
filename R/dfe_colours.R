@@ -78,6 +78,7 @@ dfe_pal <- function(palette = "main", reverse = FALSE, ...) {
 #'
 #' @examples
 #' library(ggplot2)
+#'
 #' ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, colour = Species)) +
 #'   geom_point() +
 #'   scale_colour_dfe()
@@ -137,9 +138,9 @@ scale_colour_dfe <- function(palette = "main",
 #'   geom_col() +
 #'   scale_fill_dfe()
 #'
-#' ggplot(faithful, aes(waiting, eruptions, fill = density)) +
+#' ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
 #'   geom_tile() +
-#'   scale_fill_dfe(discrete = FALSE, palette = 'heat')
+#'   scale_fill_dfe(discrete = FALSE, palette = "heat")
 #'
 scale_fill_dfe <- function(palette = "main",
                            discrete = TRUE,
@@ -166,10 +167,10 @@ scale_fill_dfe <- function(palette = "main",
 # This should be an enxported function at the moment, but it could be developed
 # in the future Plays the same role as `Rcolorbrewer::display.brewer.all()` but
 # in ggplot You can also pass individual palettes such as `dfe_palettes["full"]`
-dfe_palettes <- function(pal = dfe_palettes) {
+show_dfe_palettes <- function(palette = dfe_palettes) {
 
 
-  pal_data <- purrr::pluck(tibble::tibble(pal), 1)
+  pal_data <- purrr::pluck(tibble::tibble(palette), 1)
 
   output <- tibble::tibble()
   ord <- NULL

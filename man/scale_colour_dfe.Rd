@@ -36,6 +36,7 @@ Add colour scale to ggplot with DfE theme
 }
 \examples{
 library(ggplot2)
+
 ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, colour = Species)) +
   geom_point() +
   scale_colour_dfe()
