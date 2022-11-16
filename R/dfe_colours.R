@@ -78,7 +78,6 @@ dfe_pal <- function(palette = "main", reverse = FALSE, ...) {
 #' library(ggplot2)
 #'
 #'
-#'  #scale_colour_dfe
 #' ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, colour = Species)) +
 #'   geom_point() +
 #'   scale_colour_dfe()
@@ -87,8 +86,6 @@ dfe_pal <- function(palette = "main", reverse = FALSE, ...) {
 #'   geom_point(size = 3, alpha = 3/4) +
 #'   scale_colour_dfe(palette = "heat", discrete = FALSE)
 #'
-#'
-#'   #scale_fill_dfe()
 #' ggplot(iris, aes(Species, Sepal.Length, fill = Species)) +
 #'   geom_col() +
 #'   scale_fill_dfe()
@@ -96,9 +93,6 @@ dfe_pal <- function(palette = "main", reverse = FALSE, ...) {
 #' ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
 #'   geom_tile() +
 #'   scale_fill_dfe(discrete = FALSE, palette = "heat")
-#'
-#'
-#'
 scale_colour_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
 
   pal_check(palette)
@@ -117,6 +111,7 @@ scale_colour_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE,
 
 
 #' @describeIn scale_colour_dfe Add fill scale to ggplot with DfE theme
+#' @export
 scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
 
     pal_check(palette)
