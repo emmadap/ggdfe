@@ -178,14 +178,10 @@ show_dfe_palettes <- function(palette = dfe_palettes) {
 pal_check <- function(palette, palette_set = dfe_palettes) {
 
   if (!palette %in% names(palette_set)) {
-    pal_names <- names(palette_set)
 
     cli::cli_abort(c(
       "{.val {palette}} is not a valid palette",
-      i = "valid palettes are {.val {pal_names}}"
+      i = "valid palettes are {.val {names(palette_set)}}"
     ))
   }
 }
-
-
-
