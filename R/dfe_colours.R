@@ -52,12 +52,12 @@ dfe_pal <- function(palette = "main", reverse = FALSE, ...) {
 
 }
 
-#' Add colour scale to ggplot with DfE theme
+#' Add colour and fill scales to ggplot with DfE theme
 #'
 #' @param palette The colour palette to use
 #' @param discrete Is the scale discrete (defaults `TRUE`)
 #' @param reverse Reverse the order of the scale (defaults `FALSE`)
-#' @param ... arguments passed on to `discrete_scale()`
+#' @param ... arguments passed onto `discrete_scale()` or `scale_fill_gradientn()`
 #'
 #' @return These are the palettes in their current form
 #'  - `main` - Blue red turquoise (discrete, 3 colours)
@@ -77,6 +77,8 @@ dfe_pal <- function(palette = "main", reverse = FALSE, ...) {
 #' @examples
 #' library(ggplot2)
 #'
+#'
+#'  #scale_colour_dfe
 #' ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, colour = Species)) +
 #'   geom_point() +
 #'   scale_colour_dfe()
@@ -86,49 +88,7 @@ dfe_pal <- function(palette = "main", reverse = FALSE, ...) {
 #'   scale_colour_dfe(palette = "heat", discrete = FALSE)
 #'
 #'
-scale_colour_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
-
-  if (palette %in% names(dfe_palettes)) {
-
-    pal <- dfe_pal(palette = palette, reverse = reverse)
-
-    if (discrete) {
-      discrete_scale("colour", paste0("dfe_", palette), palette = pal, ...)
-    } else {
-      scale_colour_gradientn(colours = pal(256))
-    }
-
-  } else {
-    cat("Unrecognised palette. Palettes available:", names(dfe_palettes))
-  }
-}
-
-
-#' Add fill scale to ggplot with DfE theme
-#'
-#' @param palette The colour palette to use
-#' @param discrete Is the scale discrete (defaults `TRUE`)
-#' @param reverse Reverse the order of the scale (defaults `FALSE`)
-#' @param ... arguments passed onto discrete_scale or `scale_fill_gradientn()`
-#'
-#' @return These are the palettes in their current form
-#'  - `main` - Blue red turquoise (discrete, 3 colours)
-#'  - `warm` - Red to purple (continuous)
-#'  - `cool` - Blue to lime (continuous)
-#'  - `full` - all colours in the brand (discrete, 7 colours)
-#'  - `likert` - red to blue, grey midpoint (diverging)
-#'  - `likert2` - green to purple, white midpoint (diverging)
-#'  - `likert3` -  red to blue, white midpoint (diverging)
-#'  - `heat` - white to red (continuous)
-#'  - `heat2` - white to pink (continuous)
-#'  - `cold` - white to blue (continuous)
-#'  - `cold2` - white to turqouise (continuous)
-#'
-#' @export
-#'
-#' @examples
-#' library(ggplot2)
-#'
+#'   #scale_fill_dfe()
 #' ggplot(iris, aes(Species, Sepal.Length, fill = Species)) +
 #'   geom_col() +
 #'   scale_fill_dfe()
@@ -137,9 +97,29 @@ scale_colour_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE,
 #'   geom_tile() +
 #'   scale_fill_dfe(discrete = FALSE, palette = "heat")
 #'
+#'
+#'
+scale_colour_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
+
+  pal_check(palette)
+
+  pal <- dfe_pal(palette = palette, reverse = reverse)
+
+  if (discrete) {
+    discrete_scale("colour", paste0("dfe_", palette), palette = pal, ...)
+  } else {
+    scale_colour_gradientn(colours = pal(256))
+  }
+
+}
+
+
+
+
+#' @describeIn scale_colour_dfe Add fill scale to ggplot with DfE theme
 scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, ...) {
 
-  if (palette %in% names(dfe_palettes)) {
+    pal_check(palette)
 
     pal <- dfe_pal(palette = palette, reverse = reverse)
 
@@ -148,10 +128,6 @@ scale_fill_dfe <- function(palette = "main", discrete = TRUE, reverse = FALSE, .
     } else {
       scale_fill_gradientn(colours = pal(256), ...)
     }
-  } else {
-    cat("Unrecognised palette. Palettes available:", names(dfe_palettes))
-  }
-
 }
 
 
@@ -200,3 +176,21 @@ show_dfe_palettes <- function(palette = dfe_palettes) {
       legend.position = "none"
     )
 }
+
+
+
+#this checks to see if a palette is valid
+pal_check <- function(palette, palette_set = dfe_palettes) {
+
+  if (!palette %in% names(palette_set)) {
+    pal_names <- names(palette_set)
+
+    cli::cli_abort(c(
+      "{.val {palette}} is not a valid palette",
+      i = "valid palettes are {.val {pal_names}}"
+    ))
+  }
+}
+
+
+
