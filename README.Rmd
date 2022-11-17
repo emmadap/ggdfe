@@ -1,0 +1,85 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# dfethemes
+
+
+```{r, echo=FALSE, message=FALSE}
+
+devtools::load_all(".")
+knitr::opts_chunk$set(echo = FALSE) # if you want code chunks to be displayed, best to do it in the chunk headers
+
+```
+
+
+
+This package seeks to create an easy theme to add to any ggplot to keep it in line with DfE brand guidelines.
+
+## Colours
+
+There are two functions that work to add in colour scales: `scale_fill_dfe()` and `scale_colour_dfe()`. These replace the usual `scale_colour_*()` and `scale_fill_*()` functions to change colours on ggplot. 
+
+These are the base colours
+
+```{r, fig.height = 1.5}
+
+tibble::tibble(y=max(length(dfe_colours)),x=dfe_colours) -> data
+
+ggplot2::ggplot(data=data, ggplot2::aes(x=names(x),y=y, fill = x))+
+  ggplot2::geom_tile(width=.9,height=.9, colour = '#e5e5e5', linewidth = .5)+
+  ggplot2::scale_fill_manual(values = levels(factor(data$x)))+
+  ggplot2::coord_fixed(ratio=9/16)+
+  ggplot2::theme_void()+
+  ggplot2::theme(legend.position = 'none',
+        axis.text.x = ggplot2::element_text())
+  
+
+```
+
+
+There are also palettes, passed to the 'palettes' argument. These are for selecting a suitable subset of the colours above, depending on if you need a discrete, continuous or diverging palette.
+
+- main - Blue red turquoise (discrete, 3 colours)
+- warm - Red to purple (continuous)
+- cool - Blue to lime (continuous)
+- full - all colours in the brand (discrete, 7 colours)
+- likert - red to blue, grey midpoint (diverging)
+- likert2 - green to purple, white midpoint (diverging)
+- likert3 -  red to blue, white midpoint (diverging)
+- heat - white to red (continuous)
+- heat2 - white to pink (continuous)
+- cold - white to blue (continuous)
+- cold2 - white to turqouise (continuous)
+
+```{r}
+display.dfe.all()
+
+```
+
+Exaples of usage would be:
+
+```{r, echo = TRUE}
+ggplot2::ggplot(data = iris)+
+  ggplot2::aes(x=Sepal.Length, colour = Species)+
+  ggplot2::geom_density(linewidth = 1.5)+
+  scale_colour_dfe(palette = "main")+
+  ggplot2::theme_minimal()
+
+
+```
+
+
+
+
